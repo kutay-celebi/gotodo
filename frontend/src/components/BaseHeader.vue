@@ -5,11 +5,6 @@
       <div class="nav-title">
         <div>Todo Applciation</div>
       </div>
-<!--      <nav class="hidden md:flex space-x-10">-->
-<!--        <router-link :to="{ name: 'Home'}" class="nav-item text-base font-medium text-gray-500 hover:text-gray-900">-->
-<!--          Home-->
-<!--        </router-link>-->
-<!--      </nav>-->
     </div>
   </div>
 </template>
