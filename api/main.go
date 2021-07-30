@@ -29,6 +29,10 @@ func initializeDB() *gorm.DB {
 		PreferSimpleProtocol: true, // disables implicit prepared statement usage
 	}), &gorm.Config{})
 
+	// create uuid-ossp extension if not exists.
+	// https://stackoverflow.com/questions/22446478/extension-exists-but-uuid-generate-v4-fails
+	db.Exec("create extension IF NOT EXISTS \"uuid-ossp\" schema pg_catalog version \"1.1\"")
+	// auto migration on DB
 	db.AutoMigrate(&todo.Todo{})
 
 	if err != nil {
