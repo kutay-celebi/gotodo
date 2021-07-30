@@ -23,6 +23,8 @@ export default Vue.extend({
   width: 100%;
   border: 1px solid #ccc;
   padding: 0 1rem;
+  background: #fdfdfd;
+  border-radius: 0.25rem;
 }
 
 .card .title {
