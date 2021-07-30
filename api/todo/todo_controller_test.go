@@ -30,7 +30,7 @@ func TestGetTodos(t *testing.T) {
 	})
 
 	t.Run("Find all todo", func(t *testing.T) {
-		todoList := []Todo{{uuid.New(), "Test todo", "description"}}
+		todoList := []Todo{{uuid.New(), "Test todo", "description", false}}
 		var controller = Controller{TestRepository{TodoList: &todoList}}
 		router := util.GetRouter()
 		router.GET(util.TodoList, controller.List)
@@ -42,7 +42,7 @@ func TestGetTodos(t *testing.T) {
 
 		expect := expectate.Expect(t)
 		resp := rr.Body.String()
-		results := []Todo{}
+		var results []Todo
 		json.Unmarshal([]byte(resp), &results)
 		expect(len(results)).NotToEqual(0)
 	})
@@ -53,7 +53,7 @@ func TestGetTodos(t *testing.T) {
 		router := util.GetRouter()
 		router.GET(util.CreateTodo, controller.Create)
 
-		body, _ := json.Marshal(Todo{uuid.New(), "Test todo", "description"})
+		body, _ := json.Marshal(Todo{uuid.New(), "Test todo", "description", false})
 		req := httptest.NewRequest(http.MethodGet, util.CreateTodo, bytes.NewReader(body))
 		rr := httptest.NewRecorder()
 
