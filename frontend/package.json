@@ -10,15 +10,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@tailwindcss/forms": "^0.3.3",
-    "@tailwindcss/postcss7-compat": "^2.0.2",
-    "autoprefixer": "^9",
-    "core-js": "^3.6.5",
-    "postcss": "^7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "vue-tailwind": "^2.4.2"
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
