@@ -18,6 +18,7 @@ func main() {
 	db := initializeDB()
 
 	todoRepository := todo.NewRepositoryImpl(db)
+
 	InitializeRoutes(router, todo.NewController(todoRepository))
 	router.Run()
 }
