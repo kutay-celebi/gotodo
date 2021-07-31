@@ -1,8 +1,5 @@
 <template>
   <div class="todo-list-wrapper">
-    <button class="btn success">
-      <span><i class="ri-add-line"/>New</span>
-    </button>
     <ul v-if="todos && todos.length > 0">
       <li v-for="(todo,index) in todos" :key="`todo-${index}`">
         <div>

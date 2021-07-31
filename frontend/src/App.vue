@@ -11,6 +11,10 @@
   color: #2c3e50;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   padding: 0;
   margin: 0;

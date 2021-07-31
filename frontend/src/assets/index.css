@@ -75,3 +75,48 @@
 .btn.success {
     background-color: #10B981;
 }
+
+
+/*INPUT*/
+.form-field {
+    font-family: 'Poppins', Serif, serif;
+    padding: .75rem;
+    border: 1px solid #2c3e50;
+    border-radius: .250rem;
+    width: 100%;
+    margin: .5rem auto;
+}
+
+.text-input {
+    font-family: 'Poppins', Serif, serif;
+    border: 0;
+    resize: none;
+    font-size: 16px;
+    padding: 0;
+    width: 100%;
+}
+
+.text-input:focus {
+    outline: none;
+}
+
+.text-input:focus-visible {
+    outline: none;
+}
+
+
+/*ANIMATIONS*/
+
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all .5s;
+}
+.fade-transform-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+.fade-transform-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
