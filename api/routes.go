@@ -7,6 +7,15 @@ import (
 )
 
 func InitializeRoutes(router *gin.Engine, todoController *todo.Controller) {
+	router.Use(responseMiddleware)
+
 	router.GET(util.TodoList, todoController.List)
 	router.POST(util.CreateTodo, todoController.Create)
+}
+
+/**
+Access-Control-Allow-Origin should be added at the end of each request for axios.
+*/
+func responseMiddleware(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
 }

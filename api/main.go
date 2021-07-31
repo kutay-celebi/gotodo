@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/kutay-celebi/gotodo/todo"
 	"gorm.io/driver/postgres"
@@ -20,6 +21,10 @@ func main() {
 	todoRepository := todo.NewRepositoryImpl(db)
 
 	InitializeRoutes(router, todo.NewController(todoRepository))
+	config := cors.DefaultConfig()
+	config.AddAllowHeaders("*")
+	config.AllowAllOrigins = true
+	router.Use(cors.New(config))
 	router.Run()
 }
 
