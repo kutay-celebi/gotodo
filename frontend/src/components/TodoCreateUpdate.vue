@@ -5,7 +5,19 @@
     </button>
     <transition name="fade-transform">
       <div v-if="showContainer">
-        <form  id="todo-form" class="todo-form" @submit.prevent="handleFormSubmit">
+
+        <transition name="fade-transform">
+          <div v-if="errors && errors.length > 0">
+            <div class="error-container">
+              <i class="ri-error-warning-line"/>
+              <div class="messages">
+                <div v-for="(error, index) in errors" :key="`e-${index}`">{{ error }}</div>
+              </div>
+            </div>
+          </div>
+        </transition>
+
+        <form id="todo-form" class="todo-form" @submit.prevent="handleFormSubmit">
           <div class="form-field">
             <input id="todo-title" class="text-input" placeholder="Title" v-model="todoModel.title">
           </div>
@@ -31,12 +43,19 @@ export default Vue.extend({
   data () {
     return {
       showContainer: false,
+      errors: [] as string[],
       todoModel: {} as Todo
     }
   },
   methods: {
     handleFormSubmit () {
-      console.log(this.todoModel)
+      if (this.errors && this.errors.length > 0) {
+        return
+      }
+
+      if (!this.todoModel.title) {
+        this.errors.push('Please fill a title field.')
+      }
     }
   }
 })
@@ -48,5 +67,21 @@ export default Vue.extend({
 
 .todo-form {
   margin: 1rem 0;
+}
+
+.error-container {
+  border: 1px solid #FCA5A5;
+  border-radius: .25rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+
+}
+
+.error-container i {
+  color: #FCA5A5;
+  font-size: 1.5rem;
+  margin: 0 1rem
 }
 </style>
