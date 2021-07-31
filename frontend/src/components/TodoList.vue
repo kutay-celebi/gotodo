@@ -7,7 +7,7 @@
           <div class="todo-description">{{ todo.description }}</div>
         </div>
         <div class="actions">
-          <button v-if="!todo.completed" id="complete-btn" class="btn success" >
+          <button v-if="!todo.completed" id="complete-btn" class="btn success" @click="completeTodo(todo)">
             <span><i class="ri-check-line"/> Complete</span>
           </button>
           <button id="delete-btn" class="btn danger">
@@ -25,6 +25,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { Todo } from '@/model/Todo'
+import service from '@/util/api'
 
 export default Vue.extend({
   name: 'TodoList',
@@ -35,7 +36,23 @@ export default Vue.extend({
     todos: {
       type: Array as PropType<Todo[]>
     }
+  },
+  data () {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    async completeTodo (todo: Todo) {
+      this.loading = true
+      await service.get(`/api/todo/complete/${todo.id}`)
+        .then(async () => {
+          await this.$toast.success(`${todo.title} has completed`)
+        })
+      this.loading = false
+    }
   }
+
 })
 </script>
 

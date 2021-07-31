@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils'
+import {mount} from '@vue/test-utils'
 import Home from '@/views/Home.vue'
 import MockAdapter from 'axios-mock-adapter'
 import service from '@/util/api'
@@ -20,7 +20,7 @@ describe('Home.vue', () => {
 
   mock.onGet('/api/todo/list').reply(200, mockTodos)
 
-  it('renders a child component via routing', async () => {
+  it('todo list should be pulled when component is rendered', async () => {
     const wrapper = mount(Home)
     await flushPromises()
     expect(wrapper.vm.$data.todoList).toEqual(mockTodos)

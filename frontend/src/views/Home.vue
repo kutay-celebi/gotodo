@@ -5,7 +5,7 @@
         Todo List
       </span>
       <todo-create-update/>
-      <todo-list :todos="todoList"/>
+      <todo-list :todos="todoList" @todoComplete="completeTodo"/>
     </card>
   </div>
 </template>
@@ -27,10 +27,15 @@ export default Vue.extend({
     }
   },
   async beforeMount () {
-    await service.get('/api/todo/list')
-      .then(response => {
-        this.todoList = response.data
-      })
+    await this.getTodoList()
+  },
+  methods: {
+    async getTodoList () {
+      await service.get('/api/todo/list')
+        .then(response => {
+          this.todoList = response.data
+        })
+    }
   }
 })
 </script>
