@@ -2,15 +2,15 @@
   <div class="todo-list-wrapper">
     <ul v-if="todos && todos.length > 0">
       <li v-for="(todo,index) in todos" :key="`todo-${index}`">
-        <div>
+        <div class="todo-container">
           <div class="todo-title">{{ todo.title }}</div>
           <div class="todo-description">{{ todo.description }}</div>
         </div>
         <div class="actions">
-          <button class="btn success">
+          <button v-if="!todo.completed" id="complete-btn" class="btn success" >
             <span><i class="ri-check-line"/> Complete</span>
           </button>
-          <button class="btn danger">
+          <button id="delete-btn" class="btn danger">
             <span><i class="ri-delete-bin-2-line"/> Delete</span>
           </button>
         </div>
@@ -45,6 +45,10 @@ export default Vue.extend({
   border: 1px solid #cecece;
 }
 
+.todo-container {
+  width: 100%;
+}
+
 .todo-list-wrapper ul {
   list-style: none;
   margin: 0;
@@ -77,6 +81,7 @@ export default Vue.extend({
   width: 40%;
   text-align: center;
   flex-wrap: wrap;
+  float: right;
 }
 
 .empty-message {
