@@ -71,6 +71,7 @@ describe('TodoCreateUpdate.vue', () => {
     wrapper.find('#todo-form').trigger('submit.prevent')
     await Vue.nextTick()
     wrapper.find('#todo-form').trigger('submit.prevent')
+    await Vue.nextTick()
 
     expect(wrapper.vm.$data.errors.length).toEqual(1)
   })

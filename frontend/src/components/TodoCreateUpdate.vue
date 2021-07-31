@@ -54,7 +54,7 @@ export default Vue.extend({
       }
 
       if (!this.todoModel.title) {
-        this.errors.push('Please fill a title field.')
+        this.errors.push('Please fill the title field.')
       }
     }
   }
