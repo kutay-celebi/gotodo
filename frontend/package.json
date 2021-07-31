@@ -3,15 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 3000",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.19.0",
+    "flush-promises": "^1.0.2",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0"
+    "vue-axios": "^3.2.5",
+    "vue-router": "^3.2.0",
+    "vue-toastification": "^1.7.11"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
@@ -70,6 +75,10 @@
   "jest": {
     "preset": "@vue/cli-plugin-unit-jest/presets/typescript-and-babel",
     "collectCoverage": true,
-    "collectCoverageFrom": ["**/*.{ts,vue}", "!**/node_modules/**", "!**/main.ts"]
+    "collectCoverageFrom": [
+      "**/*.{ts,vue}",
+      "!**/node_modules/**",
+      "!**/main.ts"
+    ]
   }
 }
