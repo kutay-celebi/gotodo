@@ -48,13 +48,19 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleFormSubmit () {
-      if (this.errors && this.errors.length > 0) {
+    async handleFormSubmit () {
+      if ((!this.todoModel.title || this.todoModel.title.trim() === '') && !this.errors.some(error => error === 'Please fill the title field.')) {
+        this.errors.push('Please fill the title field.')
         return
+      } else if (this.todoModel.title && this.todoModel.title.trim() !== '') {
+        this.errors = []
       }
 
-      if (!this.todoModel.title) {
-        this.errors.push('Please fill the title field.')
+      try {
+        await this.$emit('saveTodo', this.todoModel)
+      } finally {
+        this.todoModel = {}
+        this.showContainer = false
       }
     }
   }

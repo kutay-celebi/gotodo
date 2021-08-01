@@ -1,33 +1,33 @@
 <template>
-  <div class="todo-list-wrapper">
-    <ul v-if="todos && todos.length > 0">
-      <li v-for="(todo,index) in todos" :key="`todo-${index}`">
-        <div class="todo-check-container" v-if="todo.completed">
-          <i class="ri-check-line"/>
-        </div>
-        <div class="todo-container">
-          <div class="todo-title">{{ todo.title }}</div>
-          <div class="todo-description">{{ todo.description }}</div>
-        </div>
-        <div class="actions">
-          <button v-if="!todo.completed" id="complete-btn" class="btn success" @click="completeTodo(todo)"  :disabled="loading">
-            <span><i class="ri-check-line"/> Complete</span>
-          </button>
-          <button id="delete-btn" class="btn danger" :disabled="loading">
-            <span><i class="ri-delete-bin-2-line"/> Delete</span>
-          </button>
-        </div>
-      </li>
-    </ul>
-    <div v-else class="empty-message">
-      No Record
-    </div>
-    <transition name="fade" mode="out-in">
+  <div>
+    <todo-create-update @saveTodo="saveTodo"/>
+    <div class="todo-list-wrapper">
+      <ul v-if="todos && todos.length > 0">
+        <li v-for="(todo,index) in todos" :key="`todo-${index}`">
+          <div class="todo-check-container" v-if="todo.completed">
+            <i class="ri-check-line"/>
+          </div>
+          <div class="todo-container">
+            <div class="todo-title">{{ todo.title }}</div>
+            <div class="todo-description">{{ todo.description }}</div>
+          </div>
+          <div class="actions">
+            <button v-if="!todo.completed" id="complete-btn" class="btn success" @click="completeTodo(todo)" :disabled="loading">
+              <span><i class="ri-check-line"/> Complete</span>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <div v-else class="empty-message">
+        No Record
+      </div>
+      <transition name="fade" mode="out-in">
         <span v-show="loading" class="loading-overlay">
           <i class="ri-loader-2-line spin"></i>
           <div>Loading...</div>
         </span>
-    </transition>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -35,9 +35,11 @@
 import Vue from 'vue'
 import { Todo } from '@/model/Todo'
 import service from '@/util/api'
+import TodoCreateUpdate from '@/components/TodoCreateUpdate.vue'
 
 export default Vue.extend({
   name: 'TodoList',
+  components: { TodoCreateUpdate },
   data () {
     return {
       loading: false,
@@ -60,6 +62,18 @@ export default Vue.extend({
         await service.get(`/api/todo/complete/${todo.id}`)
           .then(async () => {
             await this.$toast.success(`${todo.title} has completed`)
+            await this.getTodoList()
+          })
+      } finally {
+        this.loading = false
+      }
+    },
+    async saveTodo (todo: Todo) {
+      this.loading = true
+      try {
+        await service.post('/api/todo/create', todo)
+          .then(async () => {
+            await this.$toast.success(`${todo.title} successfully saved.`)
             await this.getTodoList()
           })
       } finally {

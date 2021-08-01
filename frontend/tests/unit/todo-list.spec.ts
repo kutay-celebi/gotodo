@@ -93,4 +93,23 @@ describe('TodoList.vue', () => {
 
     expect(wrapper.vm.$data.loading).toBeFalsy()
   })
+
+  it('save endpoint should be called', async () => {
+    mockApi.reply(200, [])
+    mock.onPost('/api/todo/create').reply(200)
+
+    const localVue = createLocalVue()
+    localVue.use(VueToastificationPlugin)
+    const wrapper = shallowMount(TodoList, {
+      localVue
+    })
+    await flushPromises()
+
+    /* eslint-disable */
+    // @ts-ignore
+    await wrapper.vm.saveTodo({ title: 'test', description: 'test', completed: false })
+
+    expect(mock.history.post.length).toBe(1)
+    expect(wrapper.vm.$data.loading).toBeFalsy()
+  })
 })
