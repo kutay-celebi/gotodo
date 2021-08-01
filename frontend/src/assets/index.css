@@ -104,6 +104,19 @@
     outline: none;
 }
 
+/*LOADING OVERLAY*/
+.loading-overlay {
+    display: flex;
+    background: rgba(255, 255, 255, 0.7);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9998;
+    align-items: center;
+    justify-content: center;
+}
 
 /*ANIMATIONS*/
 
@@ -120,3 +133,32 @@
     opacity: 0;
     transform: translateX(30px);
 }
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-active {
+    opacity: 0;
+}
+
+.spin {
+    -webkit-animation: spin 2s infinite linear;
+    animation: spin 2s infinite linear;
+    font-size: 34px;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+

@@ -7,10 +7,10 @@
           <div class="todo-description">{{ todo.description }}</div>
         </div>
         <div class="actions">
-          <button v-if="!todo.completed" id="complete-btn" class="btn success" @click="completeTodo(todo)">
+          <button v-if="!todo.completed" id="complete-btn" class="btn success" @click="completeTodo(todo)"  :disabled="loading">
             <span><i class="ri-check-line"/> Complete</span>
           </button>
-          <button id="delete-btn" class="btn danger">
+          <button id="delete-btn" class="btn danger" :disabled="loading">
             <span><i class="ri-delete-bin-2-line"/> Delete</span>
           </button>
         </div>
@@ -19,37 +19,49 @@
     <div v-else class="empty-message">
       No Record
     </div>
+    <transition name="fade" mode="out-in">
+        <span v-show="loading" class="loading-overlay">
+          <i class="ri-loader-2-line spin"></i>
+          <div>Loading...</div>
+        </span>
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue from 'vue'
 import { Todo } from '@/model/Todo'
 import service from '@/util/api'
 
 export default Vue.extend({
   name: 'TodoList',
-  model: {
-    prop: 'todos'
-  },
-  props: {
-    todos: {
-      type: Array as PropType<Todo[]>
-    }
-  },
   data () {
     return {
-      loading: false
+      loading: false,
+      todos: [] as Todo[]
     }
   },
+  async beforeMount () {
+    await this.getTodoList()
+  },
   methods: {
+    async getTodoList () {
+      await service.get('/api/todo/list')
+        .then(response => {
+          this.todos = response.data
+        })
+    },
     async completeTodo (todo: Todo) {
       this.loading = true
-      await service.get(`/api/todo/complete/${todo.id}`)
-        .then(async () => {
-          await this.$toast.success(`${todo.title} has completed`)
-        })
-      this.loading = false
+      try {
+        await service.get(`/api/todo/complete/${todo.id}`)
+          .then(async () => {
+            await this.$toast.success(`${todo.title} has completed`)
+            await this.getTodoList()
+          })
+      } finally {
+        this.loading = false
+      }
     }
   }
 
