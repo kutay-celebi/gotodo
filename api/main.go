@@ -31,7 +31,7 @@ func main() {
 func initializeDB() *gorm.DB {
 
 	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  "user=todo password=todo port=5432 sslmode=disable",
+		DSN:                  "user=todo password=todo port=5432 dbname=postgres sslmode=disable",
 		PreferSimpleProtocol: true, // disables implicit prepared statement usage
 	}), &gorm.Config{})
 

@@ -1,6 +1,7 @@
 # Introduction
 
-This is a simple todo application built by `Go` and `Vue`. `gin` and `gorm` which are Go library are used in backend development. There is no UI Framework is used in Vue. The developments are made with pure CSS. Frontend developments have been made with TypeScript.
+This is a simple todo application built by `Go` and `Vue`. `gin` and `gorm` which are Go library are used in backend development. There is
+no UI Framework is used in Vue. The developments are made with pure CSS. Frontend developments have been made with TypeScript.
 
 # Requirements
 
@@ -9,6 +10,7 @@ This is a simple todo application built by `Go` and `Vue`. `gin` and `gorm` whic
 - NodeJS
 
 # File Structure
+
 ```
 /api                // backend
     /todo           // business logic of todo
@@ -47,12 +49,21 @@ cd api
 go get
 ```
 
+4. Run Databse
+
+```shell
+docker-compose -f docker-compose-dev.yml up -d
+```
+
 4. Run backend
+
 ```shell
 cd api
 go build
 ```
+
 5. Run Frontend
+
 ```shell
 cd frontend
 yarn serve
