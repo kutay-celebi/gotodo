@@ -46,10 +46,10 @@ npm install
 
 ```shell
 cd api
-go get
+go mod download
 ```
 
-4. Run Databse
+4. Run Development Databse
 
 ```shell
 docker-compose -f docker-compose-dev.yml up -d
@@ -59,7 +59,7 @@ docker-compose -f docker-compose-dev.yml up -d
 
 ```shell
 cd api
-go build
+DB_HOST=localhost DB_USER=todo DB_PASS=todo go run .
 ```
 
 5. Run Frontend
@@ -72,3 +72,14 @@ yarn serve
 
 
 
+
+
+# Run Application on Test Environment
+
+At the root directory of project,
+
+```shell
+docker-compose -f docker-compose-test.yml up -d 
+```
+
+After that you can reach application `localhost:3000`

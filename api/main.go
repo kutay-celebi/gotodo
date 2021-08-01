@@ -7,6 +7,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"
+	"os"
 )
 
 func main() {
@@ -30,8 +31,23 @@ func main() {
 
 func initializeDB() *gorm.DB {
 
+	dbHost := os.Getenv("DB_HOST")
+	if dbHost == "" {
+		log.Fatalf("Please set the DB_HOST variable.")
+	}
+
+	dbUser := os.Getenv("DB_USER")
+	if dbUser == "" {
+		log.Fatalf("Please set the DB_USER variable.")
+	}
+
+	dbPass := os.Getenv("DB_PASS")
+	if dbPass == "" {
+		log.Fatalf("Please set the DB_PASS variable.")
+	}
+
 	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  "user=todo password=todo port=5432 dbname=postgres sslmode=disable",
+		DSN:                  "host=" + dbHost + " user=" + dbUser + " password=" + dbPass + " port=5432 dbname=tododb sslmode=disable",
 		PreferSimpleProtocol: true, // disables implicit prepared statement usage
 	}), &gorm.Config{})
 

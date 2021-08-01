@@ -2,6 +2,11 @@
   <configuration default="false" name="go build github.com/kutay-celebi/gotodo" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
     <module name="gotodo" />
     <working_directory value="$PROJECT_DIR$/api" />
+    <envs>
+      <env name="DB_HOST" value="localhost" />
+      <env name="DB_USER" value="todo" />
+      <env name="DB_PASS" value="todo" />
+    </envs>
     <kind value="PACKAGE" />
     <filePath value="$PROJECT_DIR$/api/main.go" />
     <package value="github.com/kutay-celebi/gotodo" />
