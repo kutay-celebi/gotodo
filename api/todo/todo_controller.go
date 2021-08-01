@@ -19,7 +19,7 @@ func (controller *Controller) List(c *gin.Context) {
 	todos, err := controller.repository.FindAll()
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "An error occured", Id: uuid.New().String()})
+		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "An error occured", ErrorUUID: uuid.New().String()})
 		return
 	}
 
@@ -31,7 +31,7 @@ func (controller *Controller) Create(c *gin.Context) {
 	err := c.ShouldBindJSON(&data)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "record could not create", Id: uuid.New().String()})
+		c.JSON(http.StatusBadRequest, util.ErrorResponse{Message: "record could not create", ErrorUUID: uuid.New().String()})
 		return
 	}
 
@@ -43,18 +43,18 @@ func (controller *Controller) Complete(c *gin.Context) {
 	param := c.Param("id")
 
 	if len(param) <= 0 {
-		c.JSON(http.StatusBadRequest, util.ErrorResponse{Message: "record could not create", Id: uuid.New().String()})
+		c.JSON(http.StatusBadRequest, util.ErrorResponse{Message: "record could not create", ErrorUUID: uuid.New().String()})
 		return
 	}
 
 	findTodo, err := controller.repository.FindById(param)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "record not found", Id: uuid.New().String()})
+		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "record not found", ErrorUUID: uuid.New().String()})
 		return
 	}
 
 	findTodo.Completed = true
-	updatedTodo, _ := controller.repository.Save(findTodo)
+	updatedTodo, _ := controller.repository.Update(findTodo)
 	c.JSON(http.StatusOK, updatedTodo)
 }

@@ -31,7 +31,7 @@ func TestTodoController(t *testing.T) {
 	})
 
 	t.Run("Find all todo", func(t *testing.T) {
-		todoList := []Todo{{uuid.New(), "Test todo", "description", false}}
+		todoList := []Todo{{uuid.New().String(), "Test todo", "description", false}}
 		var controller = Controller{TestRepository{TodoList: &todoList}}
 		router := util.GetRouter()
 		router.GET(util.TodoList, controller.List)
@@ -49,12 +49,11 @@ func TestTodoController(t *testing.T) {
 	})
 
 	t.Run("Create todo", func(t *testing.T) {
-		//todoList := []Todo{{uuid.New(), "Test todo", "description"}}
 		var controller = Controller{TestRepository{TodoList: &[]Todo{}}}
 		router := util.GetRouter()
 		router.POST(util.CreateTodo, controller.Create)
 
-		body, _ := json.Marshal(Todo{uuid.New(), "Test todo", "description", false})
+		body, _ := json.Marshal(Todo{uuid.New().String(), "Test todo", "description", false})
 		req := httptest.NewRequest(http.MethodPost, util.CreateTodo, bytes.NewReader(body))
 		rr := httptest.NewRecorder()
 
@@ -67,13 +66,29 @@ func TestTodoController(t *testing.T) {
 		expect(result).NotToEqual(nil)
 	})
 
+	t.Run("The wrong todo object should not be given.", func(t *testing.T) {
+		//todoList := []Todo{{uuid.New().String(), "Test todo", "description"}}
+		var controller = Controller{TestRepository{TodoList: &[]Todo{}}}
+		router := util.GetRouter()
+		router.POST(util.CreateTodo, controller.Create)
+
+		body, _ := json.Marshal("wrong todos")
+		req := httptest.NewRequest(http.MethodPost, util.CreateTodo, bytes.NewReader(body))
+		rr := httptest.NewRecorder()
+
+		router.ServeHTTP(rr, req)
+
+		expect := expectate.Expect(t)
+		expect(rr.Code).ToEqual(http.StatusBadRequest)
+	})
+
 	t.Run("Complete todo", func(t *testing.T) {
-		todoList := []Todo{{uuid.New(), "Test todo", "description", false}}
+		todoList := []Todo{{uuid.New().String(), "Test todo", "description", false}}
 		var controller = Controller{TestRepository{TodoList: &todoList}}
 		router := util.GetRouter()
 		router.GET(util.CompleteTodo+util.IdParam, controller.Complete)
 
-		req := httptest.NewRequest(http.MethodGet, util.CompleteTodo+"/"+todoList[0].ID.String(), nil)
+		req := httptest.NewRequest(http.MethodGet, util.CompleteTodo+"/"+todoList[0].ID, nil)
 		rr := httptest.NewRecorder()
 
 		router.ServeHTTP(rr, req)
@@ -87,7 +102,7 @@ func TestTodoController(t *testing.T) {
 	})
 
 	t.Run("Path variable validation error", func(t *testing.T) {
-		todoList := []Todo{{uuid.New(), "Test todo", "description", false}}
+		todoList := []Todo{{uuid.New().String(), "Test todo", "description", false}}
 		var controller = Controller{TestRepository{TodoList: &todoList}}
 		router := util.GetRouter()
 		router.GET(util.CompleteTodo+util.IdParam, controller.Complete)
@@ -103,7 +118,7 @@ func TestTodoController(t *testing.T) {
 	})
 
 	t.Run("Error updating non-existent record", func(t *testing.T) {
-		todoList := []Todo{{uuid.New(), "Test todo", "description", false}}
+		todoList := []Todo{{uuid.New().String(), "Test todo", "description", false}}
 		var controller = Controller{TestRepository{TodoList: &todoList}}
 		router := util.GetRouter()
 		router.GET(util.CompleteTodo+util.IdParam, controller.Complete)
@@ -129,6 +144,12 @@ func (r TestRepository) FindAll() (*[]Todo, error) {
 }
 
 func (r TestRepository) Save(todo *Todo) (*Todo, error) {
+	hello := append(*r.TodoList, *todo)
+	r.TodoList = &hello
+	return todo, nil
+}
+
+func (r TestRepository) Update(todo *Todo) (*Todo, error) {
 
 	if *r.TodoList != nil && todo != nil {
 		for i, v := range *r.TodoList {
@@ -137,9 +158,6 @@ func (r TestRepository) Save(todo *Todo) (*Todo, error) {
 			}
 		}
 	}
-
-	hello := append(*r.TodoList, *todo)
-	r.TodoList = &hello
 	return todo, nil
 }
 
@@ -147,7 +165,7 @@ func (r TestRepository) FindById(param string) (*Todo, error) {
 
 	if *r.TodoList != nil && len(param) >= 0 {
 		for i, v := range *r.TodoList {
-			if v.ID.String() == param {
+			if v.ID == param {
 				return &(*r.TodoList)[i], nil
 			}
 		}

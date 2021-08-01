@@ -9,6 +9,7 @@ import (
 type Repository interface {
 	FindAll() (*[]Todo, error)
 	Save(todo *Todo) (*Todo, error)
+	Update(todo *Todo) (*Todo, error)
 	FindById(param string) (*Todo, error)
 }
 
@@ -18,6 +19,16 @@ func NewRepositoryImpl(db *gorm.DB) Repository {
 
 type RepositoryImpl struct {
 	db *gorm.DB
+}
+
+func (r *RepositoryImpl) Update(todo *Todo) (*Todo, error) {
+	db := r.db.Save(&todo)
+
+	if db.Error != nil {
+		return nil, util.ErrInternal
+	}
+
+	return todo, nil
 }
 
 func (r *RepositoryImpl) FindById(param string) (*Todo, error) {
@@ -43,6 +54,6 @@ func (r *RepositoryImpl) FindAll() (*[]Todo, error) {
 }
 
 func (r *RepositoryImpl) Save(todo *Todo) (*Todo, error) {
-	r.db.Save(&todo)
+	r.db.Create(&todo)
 	return todo, nil
 }

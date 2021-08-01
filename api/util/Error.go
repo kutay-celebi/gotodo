@@ -5,8 +5,8 @@ import (
 )
 
 type ErrorResponse struct {
-	Message string
-	Id      string
+	Message   string
+	ErrorUUID string
 }
 
 var ErrInternal = fmt.Errorf("internal error")
