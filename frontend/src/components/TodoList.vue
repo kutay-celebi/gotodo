@@ -2,6 +2,9 @@
   <div class="todo-list-wrapper">
     <ul v-if="todos && todos.length > 0">
       <li v-for="(todo,index) in todos" :key="`todo-${index}`">
+        <div class="todo-check-container" v-if="todo.completed">
+          <i class="ri-check-line"/>
+        </div>
         <div class="todo-container">
           <div class="todo-title">{{ todo.title }}</div>
           <div class="todo-description">{{ todo.description }}</div>
@@ -76,6 +79,14 @@ export default Vue.extend({
 
 .todo-container {
   width: 100%;
+}
+
+.todo-check-container {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  margin-right: 1rem;
+  color: #27ae60;
 }
 
 .todo-list-wrapper ul {

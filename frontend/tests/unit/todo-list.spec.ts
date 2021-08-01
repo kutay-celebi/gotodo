@@ -51,6 +51,15 @@ describe('TodoList.vue', () => {
     expect(actual.textContent?.trim()).toEqual('No Record')
   })
 
+  it('the completed icon should appear on completed todo.', async () => {
+    mockApi.reply(200, [{ title: 'test', description: 'test', completed: true }])
+    const wrapper = shallowMount(TodoList)
+    await flushPromises()
+
+    const checkElement = wrapper.find('.todo-check-container')
+    expect(checkElement.exists()).toBeTruthy()
+  })
+
   it('should the complete button does not appear on completed todo', async () => {
     mockApi.reply(200, [{ title: 'test', description: 'test', completed: true }])
     const wrapper = shallowMount(TodoList)
