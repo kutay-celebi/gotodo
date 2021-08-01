@@ -133,6 +133,9 @@
     opacity: 0;
     transform: translateX(30px);
 }
+.fade-tranform-move {
+    transition: all .5s;
+}
 
 .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;

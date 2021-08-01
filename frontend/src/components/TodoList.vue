@@ -2,22 +2,24 @@
   <div>
     <todo-create-update @saveTodo="saveTodo"/>
     <div class="todo-list-wrapper">
-      <ul v-if="todos && todos.length > 0">
-        <li v-for="(todo,index) in todos" :key="`todo-${index}`">
-          <div class="todo-check-container" v-if="todo.completed">
-            <i class="ri-check-line"/>
-          </div>
-          <div class="todo-container">
-            <div class="todo-title">{{ todo.title }}</div>
-            <div class="todo-description">{{ todo.description }}</div>
-          </div>
-          <div class="actions">
-            <button v-if="!todo.completed" id="complete-btn" class="btn success" @click="completeTodo(todo)" :disabled="loading">
-              <span><i class="ri-check-line"/> Complete</span>
-            </button>
-          </div>
-        </li>
-      </ul>
+      <div v-if="todos && todos.length > 0">
+        <transition-group name="fade-transform" tag="ul" appear>
+          <li v-for="(todo,index) in todos" :key="`todo-${index}`">
+            <div class="todo-check-container" v-if="todo.completed">
+              <i class="ri-check-line"/>
+            </div>
+            <div class="todo-container">
+              <div class="todo-title">{{ todo.title }}</div>
+              <div class="todo-description">{{ todo.description }}</div>
+            </div>
+            <div class="actions">
+              <button v-if="!todo.completed" id="complete-btn" class="btn success" @click="completeTodo(todo)" :disabled="loading">
+                <span><i class="ri-check-line"/> Complete</span>
+              </button>
+            </div>
+          </li>
+        </transition-group>
+      </div>
       <div v-else class="empty-message">
         No Record
       </div>
