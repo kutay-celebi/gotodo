@@ -2,6 +2,8 @@ package todo
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	"github.com/kutay-celebi/gotodo/util"
 	"net/http"
 )
 
@@ -17,7 +19,8 @@ func (controller *Controller) List(c *gin.Context) {
 	todos, err := controller.repository.FindAll()
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "An error occured", Id: uuid.New().String()})
+		return
 	}
 
 	c.JSON(http.StatusOK, todos)
@@ -28,9 +31,30 @@ func (controller *Controller) Create(c *gin.Context) {
 	err := c.ShouldBindJSON(&data)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err)
+		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "record could not create", Id: uuid.New().String()})
+		return
 	}
 
-	createdTodo, _ := controller.repository.Create(data)
+	createdTodo, _ := controller.repository.Save(&data)
 	c.JSON(http.StatusOK, createdTodo)
+}
+
+func (controller *Controller) Complete(c *gin.Context) {
+	param := c.Param("id")
+
+	if len(param) <= 0 {
+		c.JSON(http.StatusBadRequest, util.ErrorResponse{Message: "record could not create", Id: uuid.New().String()})
+		return
+	}
+
+	findTodo, err := controller.repository.FindById(param)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, util.ErrorResponse{Message: "record not found", Id: uuid.New().String()})
+		return
+	}
+
+	findTodo.Completed = true
+	updatedTodo, _ := controller.repository.Save(findTodo)
+	c.JSON(http.StatusOK, updatedTodo)
 }

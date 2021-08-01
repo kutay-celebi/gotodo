@@ -1,12 +1,15 @@
 package todo
 
 import (
+	"github.com/google/uuid"
+	"github.com/kutay-celebi/gotodo/util"
 	"gorm.io/gorm"
 )
 
 type Repository interface {
 	FindAll() (*[]Todo, error)
-	Create(todo Todo) (Todo, error)
+	Save(todo *Todo) (*Todo, error)
+	FindById(param string) (*Todo, error)
 }
 
 func NewRepositoryImpl(db *gorm.DB) Repository {
@@ -17,14 +20,29 @@ type RepositoryImpl struct {
 	db *gorm.DB
 }
 
-func (r *RepositoryImpl) FindAll() (*[]Todo, error) {
-	var todos []Todo
+func (r *RepositoryImpl) FindById(param string) (*Todo, error) {
+	var todo Todo
+	id, _ := uuid.Parse(param)
+	find := r.db.Where("id = ?", id).Find(&todo)
 
-	r.db.Find(&todos)
-	return &todos, nil
+	if find.Error != nil {
+		return nil, find.Error
+	}
+
+	if find.RowsAffected > 0 {
+		return &todo, nil
+	}
+
+	return nil, util.ErrRecordNotFound
 }
 
-func (r *RepositoryImpl) Create(todo Todo) (Todo, error) {
-	r.db.Create(&todo)
+func (r *RepositoryImpl) FindAll() (*[]Todo, error) {
+	var todos []Todo
+	find := r.db.Find(&todos)
+	return &todos, find.Error
+}
+
+func (r *RepositoryImpl) Save(todo *Todo) (*Todo, error) {
+	r.db.Save(&todo)
 	return todo, nil
 }

@@ -11,6 +11,8 @@ func InitializeRoutes(router *gin.Engine, todoController *todo.Controller) {
 
 	router.GET(util.TodoList, todoController.List)
 	router.POST(util.CreateTodo, todoController.Create)
+	router.GET(util.CompleteTodo, todoController.Complete)
+	router.GET(util.CompleteTodo+util.IdParam, todoController.Complete)
 }
 
 /**
