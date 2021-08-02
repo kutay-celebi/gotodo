@@ -9,12 +9,12 @@ services:
       - POSTGRES_PASSWORD=todo
       - POSTGRES_DB=tododb
   frontend:
-    image: "test/todo-app-frontend:latest"
+    image: "celebikutay/gotodo-frontend:latest"
     restart: always
     ports:
     - 3000:3000
   api:
-    image: "test/todo-app-api:latest"
+    image: "celebikutay/gotodo-api:latest"
     restart: always
     depends_on:
       - db
