@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.com/kutay-celebi/gotodo.svg?branch=master)](https://travis-ci.com/kutay-celebi/gotodo)
+[![codecov](https://codecov.io/gh/kutay-celebi/gotodo/branch/travis/graph/badge.svg?token=fsnUvnu3Fx)](https://codecov.io/gh/kutay-celebi/gotodo)
+
+
+
 # Introduction
 
 This is a simple todo application built by `Go` and `Vue`. `gin` and `gorm` which are Go library are used in backend development. There is
