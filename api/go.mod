@@ -1,4 +1,4 @@
-module github.com/kutay-celebi/gotodo
+module github.com/kutay-celebi/gotodo/api
 
 go 1.16
 
