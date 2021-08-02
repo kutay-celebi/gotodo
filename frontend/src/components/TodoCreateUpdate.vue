@@ -16,7 +16,6 @@
             </div>
           </div>
         </transition>
-
         <form id="todo-form" class="todo-form" @submit.prevent="handleFormSubmit">
           <div class="form-field">
             <input id="todo-title" class="text-input" placeholder="Title" v-model="todoModel.title">
@@ -54,6 +53,8 @@ export default Vue.extend({
         return
       } else if (this.todoModel.title && this.todoModel.title.trim() !== '') {
         this.errors = []
+      } else {
+        return
       }
 
       try {

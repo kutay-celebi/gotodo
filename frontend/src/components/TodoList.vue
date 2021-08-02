@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div id="todo-list-comp">
     <todo-create-update @saveTodo="saveTodo"/>
     <div class="todo-list-wrapper">
       <div v-if="todos && todos.length > 0">
-        <transition-group name="fade-transform" tag="ul" appear>
+        <transition-group id="todo-list" name="fade-transform" tag="ul" appear>
           <li v-for="(todo,index) in todos" :key="`todo-${index}`">
             <div class="todo-check-container" v-if="todo.completed">
               <i class="ri-check-line"/>
