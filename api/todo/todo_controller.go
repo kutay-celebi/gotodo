@@ -3,7 +3,7 @@ package todo
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/kutay-celebi/gotodo/util"
+	"github.com/kutay-celebi/gotodo/api/util"
 	"net/http"
 )
 

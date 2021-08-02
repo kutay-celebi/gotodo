@@ -2,7 +2,7 @@ package todo
 
 import (
 	"github.com/google/uuid"
-	"github.com/kutay-celebi/gotodo/util"
+	"github.com/kutay-celebi/gotodo/api/util"
 	"gorm.io/gorm"
 )
 

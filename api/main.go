@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/kutay-celebi/gotodo/todo"
+	"github.com/kutay-celebi/gotodo/api/todo"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"log"

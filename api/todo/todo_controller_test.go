@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/gomagedon/expectate"
 	"github.com/google/uuid"
-	util "github.com/kutay-celebi/gotodo/util"
+	util "github.com/kutay-celebi/gotodo/api/util"
 	"net/http"
 	"net/http/httptest"
 	"testing"

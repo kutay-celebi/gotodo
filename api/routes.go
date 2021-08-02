@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/kutay-celebi/gotodo/todo"
-	"github.com/kutay-celebi/gotodo/util"
+	"github.com/kutay-celebi/gotodo/api/todo"
+	"github.com/kutay-celebi/gotodo/api/util"
 )
 
 func InitializeRoutes(router *gin.Engine, todoController *todo.Controller) {
