@@ -8,6 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "dev:e2e": "cypress open",
     "test:e2e:ci": "cypress run",
+    "test:unit:ci": "jest --coverage --ci && codecov",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -85,7 +86,8 @@
     "collectCoverageFrom": [
       "**/*.{ts,vue}",
       "!**/node_modules/**",
-      "!**/main.ts"
+      "!**/main.ts",
+      "!**/tests/**"
     ]
   }
 }
