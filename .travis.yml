@@ -42,7 +42,7 @@ jobs:
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       before_script:
-        - cd api
+        - cd frontend
       script:
         - docker build -t celebikutay/gotodo-frontend:latest .
         - docker push celebikutay/gotodo-frontend:latest
