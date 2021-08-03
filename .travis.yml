@@ -35,6 +35,18 @@ jobs:
         directories:
           - node_modules
 
+    - stage: push-frontend-docker-image
+      language: ruby
+      services:
+        - docker
+      before_install:
+        - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" --password-stdin
+      before_script:
+        - cd api
+      script:
+        - docker build -t celebikutay/gotodo-frontend:latest .
+        - docker
+
     # TEST API
     - stage: test-api
       language: go
@@ -47,4 +59,14 @@ jobs:
         - go test ./... -race -coverprofile=coverage.txt -covermode=atomic
       after_success:
         - bash <(curl -s https://codecov.io/bash)
-
+    - stage: push-api-docker-image
+      language: ruby
+      services:
+        - docker
+      before_install:
+        - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" --password-stdin
+      before_script:
+        - cd api
+      script:
+        - docker build -t celebikutay/gotodo-api:latest .
+        - docker
