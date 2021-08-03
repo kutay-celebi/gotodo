@@ -43,8 +43,7 @@ This application, which is a simple TODO application, has been worked with new t
 Development processes are based on TDD. Both unit tests and E2E tests are available for the UI. E2E tests were performed with `cypress` and
 unit tests with `jest`. On the GO side, an ORM tool `gorm` is used. In addition, the web framework `gin` was used on the GO application.
 
-Pipelines are located on `travis`. The application is distributed with the help of `kubernetes`. Although there is no
-loadbalancer, `kubernetes` configs have been tried to be kept simple.
+Pipelines are located on `travis`. The application is distributed with the help of `kubernetes`.
 
 # Screenshot
 
