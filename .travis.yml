@@ -30,6 +30,10 @@ jobs:
         - yarn test:e2e:ci          # test e2e
         - yarn test:unit:ci         # test unit
         - kill $(jobs -p) || true   # Kill all bg process
+      cache:
+        yarn: true
+        directories:
+          - node_modules
 
     # TEST API
     - stage: test-api

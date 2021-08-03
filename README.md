@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/kutay-celebi/gotodo.svg?branch=master)](https://travis-ci.com/kutay-celebi/gotodo)
 [![codecov](https://codecov.io/gh/kutay-celebi/gotodo/branch/master/graph/badge.svg?token=fsnUvnu3Fx)](https://codecov.io/gh/kutay-celebi/gotodo)
 
-
+![todo app](img/img-todoapp.png)
 
 # Introduction
 
@@ -29,6 +29,35 @@ no UI Framework is used in Vue. The developments are made with pure CSS. Fronten
     /util           // useful tools&functions
     /views          // pages to be rendered via router
 ```
+
+# About Todo App
+
+This application, which is a simple TODO application, has been worked with new technologies.
+
+Development processes are based on TDD. Both unit tests and E2E tests are available for the UI. E2E tests were performed with `cypress` and
+unit tests with `jest`. On the GO side, an ORM tool `gorm` is used. In addition, the web framework `gin` was used on the GO application.
+
+Pipelines are located on `travis`. The application is distributed with the help of `kubernetes`. Although there is no loadbalancer, `kubernetes` configs have been tried to be kept simple.
+
+# Screenshot
+<a href="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/ss-1.png">
+<img width="600" src="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/ss-1.png">
+</a>
+
+
+<a href="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/ss-2.png">
+<img width="600" src="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/ss-2.png">
+</a>
+
+# Run Application on Test Environment
+
+At the root directory of project,
+
+```shell
+docker-compose -f docker-compose-test.yml up -d 
+```
+
+After that you can reach application `localhost:3000`
 
 # Development
 
@@ -73,18 +102,3 @@ DB_HOST=localhost DB_USER=todo DB_PASS=todo go run .
 cd frontend
 yarn serve
 ```
-
-
-
-
-
-
-# Run Application on Test Environment
-
-At the root directory of project,
-
-```shell
-docker-compose -f docker-compose-test.yml up -d 
-```
-
-After that you can reach application `localhost:3000`
