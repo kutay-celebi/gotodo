@@ -26,10 +26,10 @@ jobs:
       script:
         - yarn global add codecov
         - yarn install
-        - yarn serve &
-        - yarn test:e2e:ci
-        - yarn test:unit:ci
-        - kill $(jobs -p) || true
+        - yarn serve &              # run app at bg
+        - yarn test:e2e:ci          # test e2e
+        - yarn test:unit:ci         # test unit
+        - kill $(jobs -p) || true   # Kill all bg process
 
     # TEST API
     - stage: test-api
