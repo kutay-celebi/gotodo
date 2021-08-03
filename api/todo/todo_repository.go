@@ -1,7 +1,6 @@
 package todo
 
 import (
-	"github.com/google/uuid"
 	"github.com/kutay-celebi/gotodo/api/util"
 	"gorm.io/gorm"
 )
@@ -33,8 +32,7 @@ func (r *RepositoryImpl) Update(todo *Todo) (*Todo, error) {
 
 func (r *RepositoryImpl) FindById(param string) (*Todo, error) {
 	var todo Todo
-	id, _ := uuid.Parse(param)
-	find := r.db.Where("id = ?", id).Find(&todo)
+	find := r.db.Where("id = ?", param).Find(&todo)
 
 	if find.Error != nil {
 		return nil, find.Error

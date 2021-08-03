@@ -1,0 +1,49 @@
+sudo: false
+branches:
+  only:
+    - travis # build master branch only
+jobs:
+  fast_finish: true
+  include:
+    # build frontend
+    - stage: build-frontend
+      language: node_js
+      node_js:
+        - 14
+      before_script:
+        - cd frontend
+      script:
+        - yarn install
+        - yarn build
+      cache:
+        yarn: true
+        directories:
+          - node_modules
+    # TEST FRONTEND
+    - stage: test-frontend
+      language: node_js
+      node_js:
+        - 14
+      before_script:
+        - cd frontend
+      script:
+        - yarn global add codecov
+        - yarn install
+        - yarn serve &
+        - yarn test:e2e:ci
+        - yarn test:unit:ci
+        - kill $(jobs -p) || true
+
+    # TEST API
+    - stage: test-api
+      language: go
+      go:
+        - 1.16.6
+      before_script:
+        - cd api
+      script:
+        - go mod download
+        - go test ./... -race -coverprofile=coverage.txt -covermode=atomic
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+
