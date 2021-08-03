@@ -15,6 +15,7 @@ spec:
         app: api
     spec:
       containers:
+
         - image: celebikutay/gotodo-api:latest
           name: api
           imagePullPolicy: Always
@@ -24,11 +25,11 @@ spec:
             - name: PORT
               value: '8080'
             - name: DB_HOST
-              value: db
+              value: "db-service"
             - name: DB_USER
-              value: 'todo'
+              value: "todo"
             - name: DB_PASS
-              value: 'todo'
+              value: "todo"
             - name: GIN_MODE
-              value: 'release'
+              value: 'debug'
 
