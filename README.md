@@ -1,6 +1,7 @@
-<a href="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/ss-1.png">
-<img width="200" style="text-align: center" src="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/img-todoapp.png">
-</a>
+
+<p align="center">
+<img width="250" src="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/img-todoapp.png">
+</p>
 
 [![Build Status](https://travis-ci.com/kutay-celebi/gotodo.svg?branch=master)](https://travis-ci.com/kutay-celebi/gotodo)
 [![codecov](https://codecov.io/gh/kutay-celebi/gotodo/branch/master/graph/badge.svg?token=fsnUvnu3Fx)](https://codecov.io/gh/kutay-celebi/gotodo)
