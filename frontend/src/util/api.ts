@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 const service = axios.create({
-  baseURL: process.env.API_BASE_URL || 'http://localhost:8080',
+  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : '/',
   timeout: 30000
 })
 
