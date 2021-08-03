@@ -69,4 +69,4 @@ jobs:
         - cd api
       script:
         - docker build -t celebikutay/gotodo-api:latest .
-        - docker push celebikutay/gotodo-frontend:latest
+        - docker push celebikutay/gotodo-api:latest
