@@ -1,7 +1,4 @@
 sudo: false
-branches:
-  only:
-    - travis # build master branch only
 jobs:
   fast_finish: true
   include:
