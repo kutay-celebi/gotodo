@@ -1,4 +1,3 @@
-
 <p align="center">
 <img width="250" src="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/img-todoapp.png">
 </p>
@@ -6,6 +5,9 @@
 [![Build Status](https://travis-ci.com/kutay-celebi/gotodo.svg?branch=master)](https://travis-ci.com/kutay-celebi/gotodo)
 [![codecov](https://codecov.io/gh/kutay-celebi/gotodo/branch/master/graph/badge.svg?token=fsnUvnu3Fx)](https://codecov.io/gh/kutay-celebi/gotodo)
 ![GitHub](https://img.shields.io/github/license/kutay-celebi/gotodo)
+![GitHub last commit](https://img.shields.io/github/last-commit/kutay-celebi/gotodo)
+[![Demo](https://img.shields.io/badge/-Demo-blue?style=flat)](http://34.142.84.33)
+
 
 # Introduction
 
@@ -41,9 +43,11 @@ This application, which is a simple TODO application, has been worked with new t
 Development processes are based on TDD. Both unit tests and E2E tests are available for the UI. E2E tests were performed with `cypress` and
 unit tests with `jest`. On the GO side, an ORM tool `gorm` is used. In addition, the web framework `gin` was used on the GO application.
 
-Pipelines are located on `travis`. The application is distributed with the help of `kubernetes`. Although there is no loadbalancer, `kubernetes` configs have been tried to be kept simple.
+Pipelines are located on `travis`. The application is distributed with the help of `kubernetes`. Although there is no
+loadbalancer, `kubernetes` configs have been tried to be kept simple.
 
 # Screenshot
+
 <a href="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/ss-1.png">
 <img width="600" src="https://raw.githubusercontent.com/kutay-celebi/gotodo/master/img/ss-1.png">
 </a>
